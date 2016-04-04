@@ -60,7 +60,7 @@ _kiwi.view.MediaMessage = Backbone.View.extend({
 
 
         image: function () {
-            return $('<a href="' + this.url + '" target="_blank"><img height="100" src="' + this.url + '" /></a>');
+            return $('<a href="' + this.url + '" target="_blank"><img src="' + this.url + '" /></a>');
         },
 
 
@@ -227,13 +227,13 @@ _kiwi.view.MediaMessage = Backbone.View.extend({
         });
 
         // Is it an image?
-        if (url.match(/(\.jpe?g|\.gif|\.bmp|\.png)\??$/i)) {
+        if (url.match(/(\.jpe?g|\.gif|\.bmp|\.png)\b/i)) {
             html += '<span class="media image" data-type="image" data-url="' + url + '" title="Open Image"><a class="open"><i class="fa fa-chevron-right"></i></a></span>';
         }
 
         // Is this an imgur link not picked up by the images regex? Only need the image ID.
         matches = (/imgur.com\/((?:.[^\/]+)|(?:a\/.+)|(?:.*\/(.+)))/gi).exec(url);
-        if (matches && !url.match(/(\.jpe?g|\.gif|\.bmp|\.png)\??$/i)) {
+        if (matches && !url.match(/(\.jpe?g|\.gif|\.bmp|\.png)\b/i)) {
             html += '<span class="media imgur" data-type="imgur" data-id="' + matches[(matches[2]?2:1)] + '" title="Open Image"><a class="open"><i class="fa fa-chevron-right"></i></a></span>';
         }
 
