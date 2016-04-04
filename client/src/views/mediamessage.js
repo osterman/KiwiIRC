@@ -6,6 +6,7 @@ _kiwi.view.MediaMessage = Backbone.View.extend({
     initialize: function () {
         // Get the URL from the data
         this.url = this.$el.data('url');
+        this.open();
     },
 
     toggle: function () {
