@@ -6,7 +6,6 @@ _kiwi.view.MediaMessage = Backbone.View.extend({
     initialize: function () {
         // Get the URL from the data
         this.url = this.$el.data('url');
-        this.open();
     },
 
     toggle: function () {
@@ -81,7 +80,7 @@ _kiwi.view.MediaMessage = Backbone.View.extend({
             var matches = (/reddit\.com\/r\/([a-zA-Z0-9_\-]+)\/comments\/([a-z0-9]+)\/([^\/]+)?/gi).exec(this.url);
 
             $.getJSON('https://www.' + matches[0] + '.json?jsonp=?', function (data) {
-                console.log('Loaded reddit data', data);
+                window.console && console.log('Loaded reddit data', data);
                 var post = data[0].data.children[0].data;
                 var thumb = '';
 
@@ -229,8 +228,17 @@ _kiwi.view.MediaMessage = Backbone.View.extend({
 
         // Is it an image?
         if (url.match(/(\.jpe?g|\.gif|\.bmp|\.png)\b/i)) {
-            html += '<span class="media image" data-type="image" data-url="' + url + '" title="Open Image"><a class="open"><i class="fa fa-chevron-right"></i></a></span>';
+          html += '<span class="media image" data-type="image" data-url="' + url + '" title="Open Image">'
+                  + '<div class="media_content"><div class="content">'
+                  + '<a href="' + url + '" target="_blank">'
+                  + '<img src="' + url + '"></a></div></div></span>';
         }
+
+        // Is it an image?
+        //if (url.match(/(\.jpe?g|\.gif|\.bmp|\.png)\b/i)) {
+        //    html += '<span class="media image" data-type="image" data-url="' + url + '" title="Open Image"><a class="open"><i class="fa fa-chevron-right"></i></a></span>';
+        //    html += '<div class="media_content"><a class="media_close"><i class="fa fa-chevron-up"></i> ' + _kiwi.global.i18n.translate('client_views_mediamessage_close').fetch() + '</a><br /><div class="content"></div></div>';
+        //}
 
         // Is this an imgur link not picked up by the images regex? Only need the image ID.
         matches = (/imgur.com\/((?:.[^\/]+)|(?:a\/.+)|(?:.*\/(.+)))/gi).exec(url);
