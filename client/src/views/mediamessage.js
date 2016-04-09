@@ -231,7 +231,8 @@ _kiwi.view.MediaMessage = Backbone.View.extend({
           html += '<span class="media image" data-type="image" data-url="' + url + '" title="Open Image">'
                   + '<div class="media_content"><div class="content">'
                   + '<a href="' + url + '" target="_blank">'
-                  + '<img src="' + url + '" onerror="this.src=\'/kiwi/assets/img/warning.png\'"></a></div></div></span>';
+                  + '<img src="' + url + '" onerror="this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.style=\'display:none;\'"></a></div></div></span>';
+//                  + '<img src="' + url + '" onerror="console.log(this)"></a></div></div></span>';
         }
 
         // Is it an image?
